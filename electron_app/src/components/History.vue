@@ -40,7 +40,8 @@
                             Share 
                         </div>
                     </template>
-                    <b-dropdown-item-button   @click="share_on_arthub(history_box)"  >Share on ArtHub.ai</b-dropdown-item-button>
+                    <b-dropdown-item-button   @click="share_on_arthub(history_box)"   >Share on ArtHub.ai</b-dropdown-item-button>
+                    <b-dropdown-item-button   @click="share_on_mastodon(history_box)" >Share on Mastodon</b-dropdown-item-button>
                 </b-dropdown>
 
                 
@@ -89,7 +90,7 @@
 <script>
 import ImageItem from '../components/ImageItem.vue'
 import {native_confirm} from "../native_functions_vue_bridge.js";
-import {share_on_arthub} from '../utils.js'
+import {share_on_arthub, share_on_mastodon} from '../utils.js'
 
 import Vue from 'vue'
 import Fuse from 'fuse.js'
@@ -172,6 +173,17 @@ export default {
             let params = this.get_box_params_dict(box);
             let that = this;
             share_on_arthub(box.imgs , params , box.prompt).then((
+                function(){ that.app_state.global_loader_modal_msg = ""}
+            )).catch(
+                function(){alert("Error in uploading.") ; that.app_state.global_loader_modal_msg = ""}
+            )
+        },
+
+        share_on_mastodon(box){
+            this.app_state.global_loader_modal_msg = "Uploading";
+            let params = this.get_box_params_dict(box);
+            let that = this;
+            share_on_mastodon(box.imgs , params , box.prompt).then((
                 function(){ that.app_state.global_loader_modal_msg = ""}
             )).catch(
                 function(){alert("Error in uploading.") ; that.app_state.global_loader_modal_msg = ""}

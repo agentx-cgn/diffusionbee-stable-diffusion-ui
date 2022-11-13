@@ -163,5 +163,30 @@ async function share_on_arthub(imgs , params,  prompt ) {
 }
 
 
+// this will only be called when the user clicks to upload thier data for sharing. 
+async function share_on_mastodon(imgs , params,  prompt ) {
 
-export { compute_n_cols ,resolve_asset_illustration , simple_hash , open_popup, share_on_arthub}
+    let urls = [];
+    for(let im of imgs)
+        if(im != 'nsfw')
+            urls.push( await temp_upload_img(im))
+
+            
+    // let share_url = "https://arthub.ai/upload?";
+            
+    // copy params
+    params = JSON.parse(JSON.stringify(params))
+            
+    console.log('share_on_mastodon', urls.join(','), params, prompt)
+
+    // share_url += "description="+ prompt + "&";
+    // if(!params.model_version)
+    //     params.model_version = ""
+    // params.model_version = "DiffusionBee" + params.model_version  ;
+    // share_url += "params="+ JSON.stringify(params) + "&"
+    // share_url += "images="+ urls.join(',')
+    // window.ipcRenderer.sendSync('open_url', share_url );
+}
+
+
+export { compute_n_cols ,resolve_asset_illustration , simple_hash , open_popup, share_on_arthub, share_on_mastodon}

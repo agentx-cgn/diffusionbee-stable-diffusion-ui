@@ -5,6 +5,9 @@ optimized_stable_diffusion/
 HF_weights/
 outputs/
 
+## private data
+notes.md
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
